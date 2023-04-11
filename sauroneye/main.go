@@ -169,9 +169,10 @@ func HandleGetValues(ctx context.Context, rest string, meals *[]DayMeal) {
 func BuildMealFromText(text string) (MealPlate, error) {
 	res := strings.Split(text, "\n")
 
+	fmt.Println(res, len(res))
 	// Rever isso aqui certeza que está ignorando
 	// algum valido
-	if len(res) < 4 {
+	if len(res) < 5 {
 		return MealPlate{
 			Open: false,
 		}, errors.New("Closed")

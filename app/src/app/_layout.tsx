@@ -13,11 +13,15 @@ import { Tabs } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
 import AppProvider from '../hooks';
+import { useEffect } from 'react';
+import { useSettings } from '../hooks/useSettings';
 
 const TabBarBg = () => <View className="h-full w-full bg-white dark:bg-slate-800" />;
 
 const HomeLayout = () => {
-  const { colorScheme } = useColorScheme();
+  const { settings } = useSettings();
+
+  const { colorScheme, setColorScheme } = useColorScheme();
 
   const [fontsLoaded] = useFonts({
     Mulish_400Regular,
@@ -25,6 +29,11 @@ const HomeLayout = () => {
     Mulish_500Medium,
     Mulish_700Bold,
   });
+
+  useEffect(() => {
+    console.log(settings);
+    if (settings) setColorScheme(settings.dark ? 'dark' : 'light');
+  }, [settings, settings?.dark]);
 
   if (!fontsLoaded) return null;
 

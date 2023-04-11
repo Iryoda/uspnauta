@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Settings = {
   vegan: boolean;
+  dark: boolean;
 };
 
 type SettingsContextProps = {
@@ -10,27 +11,36 @@ type SettingsContextProps = {
   updateSettings: (state: Settings) => void;
 };
 
+const defaultSettings: Settings = {
+  vegan: false,
+  dark: true,
+};
+
 const SettingsContext = createContext({} as SettingsContextProps);
 
 export const SettingsProvider: React.FCWC = ({ children }) => {
-  const [settings, setSettings] = useState({} as Settings);
+  const [settings, setSettings] = useState(defaultSettings);
 
   useEffect(() => {
     const handleGetItem = async () => {
       const settingsFromStorage = await AsyncStorage.getItem('@UspNauta/settings');
 
-      if (!settingsFromStorage) return {} as Settings;
+      console.log(settingsFromStorage);
 
-      return JSON.parse(settingsFromStorage);
+      if (!settingsFromStorage) return;
+
+      setSettings(JSON.parse(settingsFromStorage));
     };
 
     handleGetItem();
   }, []);
 
-  const updateSettings = (state: Settings) => {
-    setSettings({ ...settings, ...state });
+  const updateSettings = async (state: Settings) => {
+    const newSettings = { ...settings, ...state };
 
-    AsyncStorage.setItem('@UspNauta/settings', JSON.stringify(settings));
+    setSettings(newSettings);
+
+    await AsyncStorage.setItem('@UspNauta/settings', JSON.stringify(newSettings));
   };
 
   return (
