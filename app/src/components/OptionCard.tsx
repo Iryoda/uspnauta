@@ -10,10 +10,12 @@ type OptionsCardProps = {
 const OptionsCard = ({ enabled, changeState, children }: OptionsCardProps) => (
   <TouchableOpacity
     className={`rounded-full p-1 px-3 ${
-      enabled ? 'bg-blue-200 dark:bg-indigo-700' : 'bg-gray-100 dark:bg-slate-700'
+      enabled ? 'bg-black dark:bg-white' : 'bg-gray-100 dark:bg-stone-700'
     }`}
     onPress={() => changeState()}>
-    <Typography.Span>{children}</Typography.Span>
+    <Typography.Span className={`${enabled ? 'text-white' : 'text-black'}`}>
+      {children}
+    </Typography.Span>
   </TouchableOpacity>
 );
 

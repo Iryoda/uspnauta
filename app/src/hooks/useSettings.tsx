@@ -1,19 +1,22 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Settings = {
   vegan: boolean;
   dark: boolean;
+  mode: boolean;
 };
 
 type SettingsContextProps = {
   settings: Settings;
-  updateSettings: (state: Settings) => void;
+  updateSettings: (state: Partial<Settings>) => void;
 };
 
 const defaultSettings: Settings = {
   vegan: false,
   dark: true,
+  mode: false,
 };
 
 const SettingsContext = createContext({} as SettingsContextProps);
@@ -35,7 +38,7 @@ export const SettingsProvider: React.FCWC = ({ children }) => {
     handleGetItem();
   }, []);
 
-  const updateSettings = async (state: Settings) => {
+  const updateSettings = async (state: Partial<Settings>) => {
     const newSettings = { ...settings, ...state };
 
     setSettings(newSettings);

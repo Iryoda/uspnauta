@@ -9,6 +9,8 @@ type MealHandler = {
 };
 
 const MealDisplay = ({ meal, daytime, vegan }: MealHandler) => {
+  console.log(meal);
+
   if (!meal || !meal[daytime]) return <></>;
 
   return (
@@ -33,8 +35,8 @@ const MealDisplay = ({ meal, daytime, vegan }: MealHandler) => {
             </Typography.Span>
           </View>
 
-          <TouchableOpacity className="pt-4">
-            <Text className="pt-8 text-center dark:text-indigo-300">Ver mais</Text>
+          <TouchableOpacity className="pt-2">
+            <Text className="pt-8 text-center text-blue-700 dark:text-indigo-300">Ver mais</Text>
           </TouchableOpacity>
         </>
       )}

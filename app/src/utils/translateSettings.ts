@@ -5,4 +5,5 @@ type TranslateSettings = {
 export const translateSettings: TranslateSettings = {
   vegan: 'vegano',
   dark: 'tema escuro',
+  mode: 'ver todo',
 };

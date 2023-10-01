@@ -9,48 +9,55 @@ type DrowpDownSelectProps = ViewProps & {
   current: string;
   setCurrent: (state: string) => void;
   options: string[];
-  cname: string;
+  className: string;
 };
 
 /**
  * Precisa colocar um zIndex no componente pai
  */
-const DrowpDownSelect = ({ options, current, setCurrent, label, cname }: DrowpDownSelectProps) => {
+const DrowpDownSelect = ({
+  options,
+  current,
+  setCurrent,
+  label,
+  className: cname,
+}: DrowpDownSelectProps) => {
   const [open, setOpen] = useState(false);
 
   return (
     <View className={`z-40 ${cname}`}>
       <TouchableOpacity onPress={() => setOpen(!open)}>
-        <View className="flex flex-row items-start justify-between">
-          <Typography.Span className={`${open && 'rotate-180'}`}>▲</Typography.Span>
+        <View className="flex flex-row items-start  border-black border rounded-lg p-2">
+          <View className="flex flex-row justify-between w-full">
+            <Typography.H3>
+              {label && `${label}: `}
+              {current}
+            </Typography.H3>
 
-          <Typography.H2>
-            {label && `${label}: `}
-            {current}
-          </Typography.H2>
+            <Typography.Span className={`${open && 'rotate-180'}`}>▲</Typography.Span>
+          </View>
 
-          <View></View>
+          {open && (
+            <ScrollView className="absolute mt-12 w-full bg-white dark:bg-stone-900 border border-black rounded-lg">
+              {options.map((opt, i) => (
+                <TouchableOpacity
+                  key={opt}
+                  onPress={() => {
+                    setCurrent(opt);
+                    setOpen(false);
+                  }}
+                  className="py-1">
+                  <Typography.Span
+                    className={`${opt === current && 'text-blue-600 dark:text-indigo-700'} ${
+                      i !== options.length - 1 && 'border-b border-b-gray-300'
+                    } p-1 dark:border-stone-600`}>
+                    {opt}
+                  </Typography.Span>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          )}
         </View>
-
-        {open && (
-          <ScrollView className="absolute mt-8 w-full bg-white dark:bg-slate-800">
-            {options.map((opt) => (
-              <TouchableOpacity
-                key={opt}
-                onPress={() => {
-                  setCurrent(opt);
-                  setOpen(false);
-                }}>
-                <Typography.Span
-                  className={`${
-                    opt === current && 'text-blue-600 dark:text-indigo-600'
-                  } border-b border-b-gray-300 p-1 dark:border-gray-600`}>
-                  {opt}
-                </Typography.Span>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        )}
       </TouchableOpacity>
     </View>
   );

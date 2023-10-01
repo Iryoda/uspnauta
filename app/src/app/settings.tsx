@@ -13,7 +13,7 @@ const Settings = () => {
 
   return (
     <Container>
-      <Tabs.Screen options={{ title: 'Config' }} />
+      <Tabs.Screen options={{ title: 'Configuracões' }} />
 
       <Typography.H1 className="pb-7">configurações</Typography.H1>
 

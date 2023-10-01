@@ -31,7 +31,6 @@ const HomeLayout = () => {
   });
 
   useEffect(() => {
-    console.log(settings);
     if (settings) setColorScheme(settings.dark ? 'dark' : 'light');
   }, [settings, settings?.dark]);
 

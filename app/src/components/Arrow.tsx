@@ -11,22 +11,24 @@ type ArrowProps = {
 
 const Arrow = ({ currentDate, setCurrentDate, action, disabled }: ArrowProps) => {
   const handleChangeDate = (action: 'decrease' | 'increase') => {
+    let result = currentDate;
+
     if (action === 'decrease') {
-      const result = dayjs(currentDate).subtract(1, 'day');
-      setCurrentDate(result);
+      result = dayjs(currentDate).subtract(1, 'day');
     }
 
     if (action === 'increase') {
-      const result = dayjs(currentDate).add(1, 'day');
-      setCurrentDate(result);
+      result = dayjs(currentDate).add(1, 'day');
     }
+
+    setCurrentDate(result);
   };
 
   return (
     <TouchableOpacity disabled={disabled} onPress={() => handleChangeDate(action)}>
-      <Typography.H2 className={`${disabled && 'text-gray-200 dark:text-gray-700'}`}>
+      <Typography.H3 className={`text-white ${disabled && 'text-black dark:white'}`}>
         {`${action === 'increase' ? '>' : '<'}`}
-      </Typography.H2>
+      </Typography.H3>
     </TouchableOpacity>
   );
 };
